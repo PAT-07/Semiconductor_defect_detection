@@ -1,0 +1,26 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    # Environment variables can be provided via .env file (local) or direct environment settings (production)
+    env_file:
+      - .env
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    # Optional: Mount the databases so changes persist
+    volumes:
+      - ./middleware/wafer_control.db:/app/middleware/wafer_control.db
+      - ./backend/chroma_db:/app/backend/chroma_db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      # Map the Nginx internal port 80 to 5173 to match the dev environment
+      - "5173:80"
+    depends_on:
+      - backend
