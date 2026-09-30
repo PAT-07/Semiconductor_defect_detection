@@ -76,4 +76,3 @@ This application is fully containerized with pre-cached AI models for instant st
     Open your browser and navigate to `http://localhost:5173`.
 
 ---
-*Designed and engineered by Udayan Shashank Shukla.*
